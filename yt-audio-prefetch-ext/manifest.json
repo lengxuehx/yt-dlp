@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "YT Audio Prefetch Test",
+  "version": "0.1.0",
+  "description": "Prefetch 10-15s of YouTube audio via DASH MPD and save to file.",
+  "permissions": [
+    "scripting",
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "https://*.googlevideo.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["src/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["src/injected.js"],
+      "matches": ["https://www.youtube.com/*"]
+    }
+  ]
+}
